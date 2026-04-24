@@ -153,6 +153,25 @@ h3 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(32px, 5vw, 52px); l
 
 footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-align: center; padding: 20px 40px; letter-spacing: 0.08em; }
 
+/* LANGUAGE SWITCHER */
+.lang-switcher {
+  display: flex; align-items: center; gap: 0;
+  border: 1px solid rgba(255,255,255,0.18);
+  overflow: hidden; flex-shrink: 0;
+}
+.lang-btn {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 6px 12px; cursor: crosshair; border: none;
+  background: transparent; color: var(--mid);
+  transition: background 0.15s, color 0.15s;
+  line-height: 1;
+}
+.lang-btn.active {
+  background: var(--red); color: var(--chalk);
+}
+.lang-btn:not(.active):hover { color: var(--yellow); }
+
 /* RESPONSIVE */
 @media (max-width: 720px) {
   nav { padding: 0 20px; }
@@ -174,27 +193,30 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
 <body>
 
 <nav>
-  <div </span></div>
+  <div class="lang-switcher">
+    <button class="lang-btn active" id="btn-es" onclick="setLang('es')">ES</button>
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
   <ul>
     <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Proyectos</a></li>
-    <li><a href="#about">Sobre mí</a></li>
-    <li><a href="#contact">Contacto</a></li>
+    <li><a href="#projects" data-es="Proyectos" data-en="Projects">Proyectos</a></li>
+    <li><a href="#about" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
+    <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
   </ul>
 </nav>
 
 <section id="hero" style="padding:0; border-bottom:3px solid var(--ink);">
   <div class="hero-main">
-    <div class="available-tag">Disponible para trabajar</div>
+    <div class="available-tag" data-es="Disponible para trabajar" data-en="Available for work">Disponible para trabajar</div>
     <h1>JOSU<br><span class="last">GOITIA.</span></h1>
     <p class="hero-role">C++ Software Engineer · Graphics &amp; Engine Programming</p>
     <div class="hero-btns">
-      <a href="#contact" class="btn btn-red">Contactar</a>
-      <a href="CV_JosuGoitia.pdf" class="btn" download>Descargar CV</a>
+      <a href="#contact" class="btn btn-red" data-es="Contactar" data-en="Contact me">Contactar</a>
+      <a id="cv-download-hero" href="CV_JosuGoitia.pdf" class="btn" download data-es="Descargar CV" data-en="Download CV">Descargar CV</a>
     </div>
   </div>
   <div class="hero-strip">
-    <div class="strip-item red-text">Disponible · Bilbao · Madrid</div>
+    <div class="strip-item red-text" data-es="Disponible · Bilbao · Madrid" data-en="Available · Bilbao · Madrid">Disponible · Bilbao · Madrid</div>
     <div class="strip-item red-text">Digipen Institute of Technology</div>
   </div>
 </section>
@@ -206,7 +228,7 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
   </div>
   <div class="skills-layout">
     <div class="skill-block reveal">
-      <div class="skill-block-label ">Lenguajes</div>
+      <div class="skill-block-label" data-es="Lenguajes" data-en="Languages">Lenguajes</div>
       <div class="skill-items">
         <span class="skill-pill main">C++</span>
         <span class="skill-pill main">CSS</span>
@@ -242,7 +264,7 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
       </div>
     </div>
     <div class="skill-block reveal">
-      <div class="skill-block-label">Otros</div>
+      <div class="skill-block-label" data-es="Otros" data-en="Other">Otros</div>
       <div class="skill-items">
         <span class="skill-pill main">C++ TCP/UDP Networking</span>
         <span class="skill-pill main">Docker</span>
@@ -258,7 +280,7 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
 <section id="projects">
   <div class="section-header">
     <span class="section-num">02 /</span>
-    <h2>PROYECTOS</h2>
+    <h2 data-es="PROYECTOS" data-en="PROJECTS">PROYECTOS</h2>
   </div>
 
   <div class="project-entry reveal">
@@ -268,16 +290,16 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
         <h3>CHAOS FOR SALE</h3>
         <span class="project-year-tag">2023 – 2024 · Digipen Bilbao</span>
       </div>
-      <div class="project-role-tag">Graphics Programmer · Motor C++ propio · Equipo 14 personas</div>
-      <p class="project-body">
+      <div class="project-role-tag" data-es="Graphics Programmer · Motor C++ propio · Equipo 14 personas" data-en="Graphics Programmer · Custom C++ Engine · 14-person team">Graphics Programmer · Motor C++ propio · Equipo 14 personas</div>
+      <p class="project-body" data-es="Responsable del pipeline gráfico completo, diseñado e implementado desde cero sobre OpenGL y SDL. Cubrí todas las fases de renderizado y las herramientas visuales del equipo." data-en="Responsible for the complete graphics pipeline, designed and implemented from scratch on top of OpenGL and SDL. Covered all rendering stages and the team's visual tools.">
         Responsable del pipeline gráfico completo, diseñado e implementado desde cero sobre OpenGL y SDL.
         Cubrí todas las fases de renderizado y las herramientas visuales del equipo.
       </p>
       <ul class="project-highlights">
-        <li>Pipeline gráfico completo: carga de meshes y texturas personalizadas, outlining de objetos y mouse picking.</li>
-        <li>Framework de sombras con shadow mapping y sistema de capas para HUD en screen space.</li>
-        <li>Antialiasing MSAA sin impacto perceptible en rendimiento.</li>
-        <li>Sistema de cámara con controles completos y lógica de gameplay adicional.</li>
+        <li data-es="Pipeline gráfico completo: carga de meshes y texturas personalizadas, outlining de objetos y mouse picking." data-en="Complete graphics pipeline: custom mesh and texture loading, object outlining and mouse picking.">Pipeline gráfico completo: carga de meshes y texturas personalizadas, outlining de objetos y mouse picking.</li>
+        <li data-es="Framework de sombras con shadow mapping y sistema de capas para HUD en screen space." data-en="Shadow framework with shadow mapping and a screen-space HUD layer system.">Framework de sombras con shadow mapping y sistema de capas para HUD en screen space.</li>
+        <li data-es="Antialiasing MSAA sin impacto perceptible en rendimiento." data-en="MSAA antialiasing with no perceptible performance impact.">Antialiasing MSAA sin impacto perceptible en rendimiento.</li>
+        <li data-es="Sistema de cámara con controles completos y lógica de gameplay adicional." data-en="Camera system with full controls and additional gameplay logic.">Sistema de cámara con controles completos y lógica de gameplay adicional.</li>
       </ul>
       <div class="tech-row">
         <span class="tech-chip">C++</span>
@@ -297,16 +319,16 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
         <h3>VIRTUAL MAYHEM</h3>
         <span class="project-year-tag">2022 – 2023 · Digipen Bilbao</span>
       </div>
-      <div class="project-role-tag">Engine &amp; Gameplay Programmer · Motor C++ propio · Equipo 14 personas</div>
-      <p class="project-body">
+      <div class="project-role-tag" data-es="Engine &amp; Gameplay Programmer · Motor C++ propio · Equipo 14 personas" data-en="Engine &amp; Gameplay Programmer · Custom C++ Engine · 14-person team">Engine &amp; Gameplay Programmer · Motor C++ propio · Equipo 14 personas</div>
+      <p class="project-body" data-es="Desarrollé el editor del motor y los sistemas core de gameplay: herramientas de edición, sistemas transversales del motor y lógica de partida." data-en="Developed the engine editor and core gameplay systems: editing tools, cross-cutting engine systems, and match logic.">
         Desarrollé el editor del motor y los sistemas core de gameplay: herramientas de edición,
         sistemas transversales del motor y lógica de partida.
       </p>
       <ul class="project-highlights">
-        <li>Editor completo con ImGui/ImGuizmo: crear/borrar/clonar objetos, undo/redo y drag &amp; drop.</li>
-        <li>Sistema de arquetipos para objetos reutilizables, integrado en el editor.</li>
-        <li>Sistema de efectos especiales event-driven sobre el event system del motor.</li>
-        <li>Modos sandbox y entrenamiento, sistema de puntuación y duración de partida.</li>
+        <li data-es="Editor completo con ImGui/ImGuizmo: crear/borrar/clonar objetos, undo/redo y drag &amp; drop." data-en="Full editor with ImGui/ImGuizmo: create/delete/clone objects, undo/redo and drag &amp; drop.">Editor completo con ImGui/ImGuizmo: crear/borrar/clonar objetos, undo/redo y drag &amp; drop.</li>
+        <li data-es="Sistema de arquetipos para objetos reutilizables, integrado en el editor." data-en="Archetype system for reusable objects, integrated into the editor.">Sistema de arquetipos para objetos reutilizables, integrado en el editor.</li>
+        <li data-es="Sistema de efectos especiales event-driven sobre el event system del motor." data-en="Event-driven special effects system built on top of the engine's event system.">Sistema de efectos especiales event-driven sobre el event system del motor.</li>
+        <li data-es="Modos sandbox y entrenamiento, sistema de puntuación y duración de partida." data-en="Sandbox and training modes, scoring system and match duration.">Modos sandbox y entrenamiento, sistema de puntuación y duración de partida.</li>
       </ul>
       <div class="tech-row">
         <span class="tech-chip">C++</span>
@@ -318,7 +340,9 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
     </div>
   </div>
 
-  <p style="margin-top:8px; padding-top:24px; border-top:1px solid var(--line); font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--mid);">
+  <p style="margin-top:8px; padding-top:24px; border-top:1px solid var(--line); font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--mid);"
+     data-es="* Repositorios bajo acuerdo institucional con Digipen. Código disponible bajo solicitud directa."
+     data-en="* Repositories under institutional agreement with Digipen. Code available upon direct request.">
     * Repositorios bajo acuerdo institucional con Digipen. Código disponible bajo solicitud directa.
   </p>
 </section>
@@ -326,20 +350,26 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
 <section id="about">
   <div class="section-header">
     <span class="section-num">03 /</span>
-    <h2>SOBRE MÍ</h2>
+    <h2 data-es="SOBRE MÍ" data-en="ABOUT ME">SOBRE MÍ</h2>
   </div>
   <div class="about-grid">
     <div>
-      <p class="about-big-text reveal">
+      <p class="about-big-text reveal"
+         data-es="Soy de Mungia, Bizkaia. Estudié en Digipen Bilbao y terminé parte de la carrera en el campus de <em>Redmond, Washington</em> — donde está el original."
+         data-en="I'm from Mungia, Bizkaia. I studied at Digipen Bilbao and completed part of my degree at the <em>Redmond, Washington</em> campus — the original one.">
         Soy de Mungia, Bizkaia. Estudié en Digipen Bilbao y terminé parte de la carrera
         en el campus de <em>Redmond, Washington</em> — donde está el original.
       </p>
-      <p class="about-big-text reveal">
+      <p class="about-big-text reveal"
+         data-es="Me especializo en <em>graphics programming</em> y desarrollo de motores: entender qué pasa en cada fase del pipeline, construir herramientas que otros usan y resolver problemas sin solución obvia."
+         data-en="I specialize in <em>graphics programming</em> and engine development: understanding what happens at each pipeline stage, building tools others rely on, and solving problems with no obvious solution.">
         Me especializo en <em>graphics programming</em> y desarrollo de motores:
         entender qué pasa en cada fase del pipeline, construir herramientas
         que otros usan y resolver problemas sin solución obvia.
       </p>
-      <p class="about-note reveal">
+      <p class="about-note reveal"
+         data-es="Hablo español y euskera nativos y un inglés profesional (C1 y un año viviendo en EEUU).<br>Busco mi primer trabajo en Bilbao/Bizkaia o Madrid."
+         data-en="Native Spanish and Basque speaker with professional English (C1 and one year living in the US).<br>Looking for my first job in Bilbao/Bizkaia or Madrid.">
         Hablo español y euskera nativos y un inglés profesional (C1 y un año viviendo en EEUU).<br>
         Busco mi primer trabajo en Bilbao/Bizkaia o Madrid.
       </p>
@@ -347,13 +377,13 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
     <div class="edu-list">
       <div class="edu-item reveal">
         <div class="edu-school-name">Digipen Institute of Technology</div>
-        <div class="edu-degree-name">B.S. Computer Science in Real-Time Interactive Simulation</div>
-        <div class="edu-period">Bilbao · 2019 – 2024</div>
+        <div class="edu-degree-name" data-es="B.S. Computer Science in Real-Time Interactive Simulation" data-en="B.S. Computer Science in Real-Time Interactive Simulation">B.S. Computer Science in Real-Time Interactive Simulation</div>
+        <div class="edu-period" data-es="Bilbao · 2019 – 2024" data-en="Bilbao · 2019 – 2024">Bilbao · 2019 – 2024</div>
       </div>
       <div class="edu-item reveal">
         <div class="edu-school-name">Digipen Institute of Technology</div>
-        <div class="edu-degree-name">Exchange — créditos avanzados</div>
-        <div class="edu-period">Redmond, WA (EE.UU.) · 2024 – 2025</div>
+        <div class="edu-degree-name" data-es="Exchange — créditos avanzados" data-en="Exchange — advanced credits">Exchange — créditos avanzados</div>
+        <div class="edu-period" data-es="Redmond, WA (EE.UU.) · 2024 – 2025" data-en="Redmond, WA (USA) · 2024 – 2025">Redmond, WA (EE.UU.) · 2024 – 2025</div>
       </div>
     </div>
   </div>
@@ -362,7 +392,7 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
 <section id="contact">
   <div class="section-header">
     <span class="section-num">04 /</span>
-    <h2>CONTACTO</h2>
+    <h2 data-es="CONTACTO" data-en="CONTACT">CONTACTO</h2>
   </div>
   <div class="contact-layout">
     <div>
@@ -376,8 +406,9 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
       </div>
     </div>
     <div class="contact-cv-block reveal">
-      <div class="contact-cv-label">Currículum</div>
-      <a href="CV_JosuGoitia.pdf" class="btn" style="border-color:var(--ink);color:var(--ink);margin-top:8px;" download>
+      <div class="contact-cv-label" data-es="Currículum" data-en="Resume">Currículum</div>
+      <a id="cv-download-contact" href="CV_JosuGoitia.pdf" class="btn" style="border-color:var(--ink);color:var(--ink);margin-top:8px;" download
+         data-es="Descargar CV →" data-en="Download CV →">
         Descargar CV →
       </a>
     </div>
@@ -389,6 +420,7 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
 </footer>
 
 <script>
+// --- Scroll reveal ---
 const io = new IntersectionObserver((entries) => {
   entries.forEach((e, i) => {
     if (e.isIntersecting) {
@@ -399,6 +431,7 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
+// --- Active nav link on scroll ---
 const navLinks = document.querySelectorAll('nav ul a');
 window.addEventListener('scroll', () => {
   let current = '';
@@ -409,6 +442,39 @@ window.addEventListener('scroll', () => {
     a.style.color = a.getAttribute('href') === '#' + current ? 'var(--yellow)' : '';
   });
 });
+
+// --- Language switcher ---
+let currentLang = 'es';
+
+const CV_FILES = {
+  es: 'CV_JosuGoitia.pdf',
+  en: 'CV_JosuGoitia_EN.pdf'
+};
+
+function setLang(lang) {
+  if (lang === currentLang) return;
+  currentLang = lang;
+
+  // Toggle button styles
+  document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+  // Update html lang attribute
+  document.documentElement.lang = lang === 'es' ? 'es' : 'en';
+
+  // Update all elements with data-es / data-en
+  document.querySelectorAll('[data-es][data-en]').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text !== null) el.innerHTML = text;
+  });
+
+  // Update CV download links
+  const cvFile = CV_FILES[lang];
+  ['cv-download-hero', 'cv-download-contact'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('href', cvFile);
+  });
+}
 </script>
 </body>
 </html>
