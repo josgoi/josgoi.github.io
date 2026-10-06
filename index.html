@@ -43,7 +43,7 @@ nav ul a { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(
 nav ul a:hover { color: var(--yellow); }
 
 /* HERO */
-#hero { min-height: 100vh; display: grid; grid-template-rows: 1fr auto; border-bottom: 3px solid var(--ink); overflow: hidden; position: relative; }
+#hero { min-height: 72vh; display: grid; grid-template-rows: 1fr auto; border-bottom: 3px solid var(--ink); overflow: hidden; position: relative; }
 .hero-main { padding: 60px 40px 40px; display: flex; flex-direction: column; justify-content: center; position: relative; }
 .hero-main::before {
   content: ''; position: absolute; right: -60px; top: -40px;
@@ -172,6 +172,36 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
 }
 .lang-btn:not(.active):hover { color: var(--yellow); }
 
+
+/* PORTFOLIO GRID */
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+.filter-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 16px; border: 2px solid var(--ink); background: transparent; color: var(--ink); cursor: crosshair; transition: background 0.15s, color 0.15s; }
+.filter-btn:hover, .filter-btn.active { background: var(--ink); color: var(--paper); }
+.grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 28px; }
+.card { flex: 0 0 calc((100% - 56px) / 3); border: 2px solid var(--ink); background: var(--chalk); cursor: crosshair; display: flex; flex-direction: column; transition: transform 0.15s, box-shadow 0.15s; }
+.card:hover, .card:focus-visible { transform: translate(-4px,-4px); box-shadow: 6px 6px 0 var(--red); outline: none; }
+.thumb { aspect-ratio: 16/10; border-bottom: 2px solid var(--ink); position: relative; overflow: hidden; display: flex; align-items: flex-end; justify-content: space-between; padding: 16px; background: var(--ink); color: var(--paper); }
+.thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.thumb .big { font-family: 'Bebas Neue', sans-serif; font-size: 110px; line-height: 0.75; color: var(--yellow); }
+.thumb .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.8; }
+.card-body { padding: 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.card-cat { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); }
+.card h3 { font-size: 34px; }
+.card p { font-size: 14px; line-height: 1.55; color: #4a4035; }
+.card .tech-row { margin-top: auto; padding-top: 6px; }
+.repo-note { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--mid); }
+.modal { position: fixed; inset: 0; background: rgba(26,18,8,0.85); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal.open { display: flex; }
+.modal-box { background: var(--paper); border: 3px solid var(--ink); max-width: 720px; width: 100%; max-height: 90vh; overflow: auto; position: relative; }
+.modal-close { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border: 2px solid var(--ink); background: var(--paper); font-size: 14px; cursor: crosshair; z-index: 2; }
+.modal-close:hover { background: var(--red); color: var(--chalk); border-color: var(--red); }
+.modal-in { padding: 36px 32px 32px; }
+.modal-in h3 { margin: 6px 0 10px; padding-right: 40px; }
+.modal-video { width: 100%; max-height: 55vh; display: block; background: var(--ink); object-fit: cover; border-bottom: 2px solid var(--ink); }
+.modal-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+@media (max-width: 980px) { .card { flex-basis: calc((100% - 28px) / 2); } }
+@media (max-width: 720px) { .card { flex-basis: 100%; } .modal-in { padding: 32px 20px 24px; } }
+
 /* RESPONSIVE */
 @media (max-width: 720px) {
   nav { padding: 0 20px; }
@@ -198,8 +228,8 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
     <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
   </div>
   <ul>
-    <li><a href="#skills">Skills</a></li>
     <li><a href="#projects" data-es="Proyectos" data-en="Projects">Proyectos</a></li>
+    <li><a href="#skills">Skills</a></li>
     <li><a href="#about" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
     <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
   </ul>
@@ -210,8 +240,10 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
     <div class="available-tag" data-es="Disponible para trabajar" data-en="Available for work">Disponible para trabajar</div>
     <h1>JOSU<br><span class="last">GOITIA.</span></h1>
     <p class="hero-role">Software Developer · C++ · React · Node.js</p>
+    <p class="hero-desc" data-es="Programo y desarrollo software, desde motores gráficos en C++ hasta aplicaciones web con React y Node.js. Estos son algunos de mis proyectos." data-en="I build and develop software, from C++ graphics engines to web apps with React and Node.js. Here are some of my projects.">Programo y desarrollo software, desde motores gráficos en C++ hasta aplicaciones web con React y Node.js. Estos son algunos de mis proyectos.</p>
     <div class="hero-btns">
-      <a href="#contact" class="btn btn-red" data-es="Contactar" data-en="Contact me">Contactar</a>
+      <a href="#projects" class="btn btn-red" data-es="Ver proyectos" data-en="See projects">Ver proyectos</a>
+      <a href="#contact" class="btn" data-es="Contactar" data-en="Contact me">Contactar</a>
       <a id="cv-download-hero" href="CV_JosuGoitia.pdf" class="btn" download data-es="Descargar CV" data-en="Download CV">Descargar CV</a>
     </div>
   </div>
@@ -221,9 +253,23 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
   </div>
 </section>
 
-<section id="skills">
+<section id="projects">
   <div class="section-header">
     <span class="section-num">01 /</span>
+    <h2 data-es="PROYECTOS" data-en="PROJECTS">PROYECTOS</h2>
+  </div>
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="grid"></div>
+  <p class="repo-note" data-es="* Repositorios académicos bajo acuerdo institucional con Digipen. Código disponible bajo solicitud directa." data-en="* Academic repositories under institutional agreement with Digipen. Code available upon direct request.">* Repositorios académicos bajo acuerdo institucional con Digipen. Código disponible bajo solicitud directa.</p>
+</section>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box"><button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button><div id="modal-media"></div><div class="modal-in" id="modal-in"></div></div>
+</div>
+
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">02 /</span>
     <h2>STACK</h2>
   </div>
   <div class="skills-layout">
@@ -272,98 +318,7 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
   </div>
 </section>
 
-<section id="projects">
-  <div class="section-header">
-    <span class="section-num">02 /</span>
-    <h2 data-es="PROYECTOS" data-en="PROJECTS">PROYECTOS</h2>
-  </div>
 
-  <div class="project-entry reveal">
-    <div class="project-num-col"><span>01</span></div>
-    <div class="project-content">
-      <div class="project-top">
-        <h3 data-es="E-COMMERCE FULLSTACK" data-en="FULLSTACK E-COMMERCE">E-COMMERCE FULLSTACK</h3>
-        <span class="project-year-tag" data-es="Proyecto personal" data-en="Personal project">Proyecto personal</span>
-      </div>
-      <div class="project-role-tag" data-es="Desarrollador Fullstack · React, Node.js &amp; MongoDB" data-en="Fullstack Developer · React, Node.js &amp; MongoDB">Desarrollador Fullstack · React, Node.js &amp; MongoDB</div>
-      <p class="project-body" data-es="Plataforma de e-commerce completa desarrollada como proyecto personal. SPA con autenticación segura y pasarela de pago real, desplegada con contenedores Docker para garantizar la consistencia en producción." data-en="Complete e-commerce platform developed as a personal project. SPA with secure authentication and real payment gateway, deployed with Docker containers to ensure production consistency.">
-        Plataforma de e-commerce completa desarrollada como proyecto personal.
-        SPA con autenticación segura y pasarela de pago real, desplegada con contenedores Docker para garantizar la consistencia en producción.
-      </p>
-      <ul class="project-highlights">
-        <li data-es="Single Page Application con autenticación JWT y flujo de usuario completo." data-en="Single Page Application with JWT authentication and full user flow.">Single Page Application con autenticación JWT y flujo de usuario completo.</li>
-        <li data-es="Pasarela de pago integrada con Stripe API." data-en="Payment gateway integrated with Stripe API.">Pasarela de pago integrada con Stripe API.</li>
-        <li data-es="Despliegue en contenedores Docker para consistencia entre entornos." data-en="Docker container deployment for environment consistency.">Despliegue en contenedores Docker para consistencia entre entornos.</li>
-      </ul>
-      <div class="tech-row">
-        <span class="tech-chip">React.js</span>
-        <span class="tech-chip">Node.js</span>
-        <span class="tech-chip">MongoDB</span>
-        <span class="tech-chip">JWT</span>
-        <span class="tech-chip">Stripe API</span>
-        <span class="tech-chip">Docker</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="project-entry reveal">
-    <div class="project-num-col"><span>02</span></div>
-    <div class="project-content">
-      <div class="project-top">
-        <h3 data-es="MOTOR &amp; JUEGO EN 3D" data-en="3D ENGINE &amp; GAME">MOTOR &amp; JUEGO EN 3D</h3>
-        <span class="project-year-tag" data-es="Proyecto académico en grupo · Digipen" data-en="Academic group project · Digipen">Proyecto académico en grupo · Digipen</span>
-      </div>
-      <div class="project-role-tag" data-es="Programador de gráficos y gameplay · C++, OpenGL &amp; GIT" data-en="Graphics &amp; Gameplay Programmer · C++, OpenGL &amp; GIT">Programador de gráficos y gameplay · C++, OpenGL &amp; GIT</div>
-      <p class="project-body" data-es="Motor gráfico 3D construido desde cero sobre OpenGL. Responsable del pipeline de renderizado, shaders y desarrollo de gameplay y diseño de niveles." data-en="3D graphics engine built from scratch on top of OpenGL. Responsible for the rendering pipeline, shaders, and gameplay development and level design.">
-        Motor gráfico 3D construido desde cero sobre OpenGL. Responsable del pipeline de renderizado,
-        shaders y desarrollo de gameplay y diseño de niveles.
-      </p>
-      <ul class="project-highlights">
-        <li data-es="Motor gráfico 3D con OpenGL para renderizar modelos y texturas en 3D." data-en="3D graphics engine with OpenGL for rendering 3D models and textures.">Motor gráfico 3D con OpenGL para renderizar modelos y texturas en 3D.</li>
-        <li data-es="Shaders GLSL para efectos de iluminación, sombras e interfaces dinámicas." data-en="GLSL shaders for lighting effects, shadows and dynamic interfaces.">Shaders GLSL para efectos de iluminación, sombras e interfaces dinámicas.</li>
-        <li data-es="Desarrollo de gameplay, diseño de niveles y pulido final del juego." data-en="Gameplay development, level design and final game polish.">Desarrollo de gameplay, diseño de niveles y pulido final del juego.</li>
-      </ul>
-      <div class="tech-row">
-        <span class="tech-chip">C++</span>
-        <span class="tech-chip">OpenGL</span>
-        <span class="tech-chip">GLSL</span>
-        <span class="tech-chip">Git</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="project-entry reveal">
-    <div class="project-num-col"><span>03</span></div>
-    <div class="project-content">
-      <div class="project-top">
-        <h3 data-es="MOTOR &amp; JUEGO EN 2D" data-en="2D ENGINE &amp; GAME">MOTOR &amp; JUEGO EN 2D</h3>
-        <span class="project-year-tag" data-es="Proyecto académico en grupo · Digipen" data-en="Academic group project · Digipen">Proyecto académico en grupo · Digipen</span>
-      </div>
-      <div class="project-role-tag" data-es="Programador de herramientas y gameplay · C++, OpenGL, ImGui/ImGuizmo &amp; GIT" data-en="Tools &amp; Gameplay Programmer · C++, OpenGL, ImGui/ImGuizmo &amp; GIT">Programador de herramientas y gameplay · C++, OpenGL, ImGui/ImGuizmo &amp; GIT</div>
-      <p class="project-body" data-es="Desarrollo del editor personalizado del motor y sistemas de gameplay. El editor permite importar/exportar escenas, crear niveles y editar objetos en tiempo real." data-en="Development of the custom engine editor and gameplay systems. The editor allows importing/exporting scenes, creating levels and editing objects in real time.">
-        Desarrollo del editor personalizado del motor y sistemas de gameplay.
-        El editor permite importar/exportar escenas, crear niveles y editar objetos en tiempo real.
-      </p>
-      <ul class="project-highlights">
-        <li data-es="Editor personalizado con funciones de importar/exportar, creación de niveles y edición en tiempo real." data-en="Custom editor with import/export functions, level creation and real-time editing.">Editor personalizado con funciones de importar/exportar, creación de niveles y edición en tiempo real.</li>
-        <li data-es="Desarrollo de gameplay, efectos visuales y pulido final del juego." data-en="Gameplay development, visual effects and final game polish.">Desarrollo de gameplay, efectos visuales y pulido final del juego.</li>
-      </ul>
-      <div class="tech-row">
-        <span class="tech-chip">C++</span>
-        <span class="tech-chip">OpenGL</span>
-        <span class="tech-chip">ImGui</span>
-        <span class="tech-chip">ImGuizmo</span>
-        <span class="tech-chip">Git</span>
-      </div>
-    </div>
-  </div>
-
-  <p style="margin-top:8px; padding-top:24px; border-top:1px solid var(--line); font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--mid);"
-     data-es="* Repositorios bajo acuerdo institucional con Digipen. Código disponible bajo solicitud directa."
-     data-en="* Repositories under institutional agreement with Digipen. Code available upon direct request.">
-    * Repositorios bajo acuerdo institucional con Digipen. Código disponible bajo solicitud directa.
-  </p>
-</section>
 
 <section id="about">
   <div class="section-header">
@@ -485,6 +440,9 @@ function setLang(lang) {
     if (text !== null) el.innerHTML = text;
   });
 
+  renderProjects();
+  closeModal();
+
   // Update CV download links
   const cvFile = CV_FILES[lang];
   ['cv-download-hero', 'cv-download-contact'].forEach(id => {
@@ -492,6 +450,115 @@ function setLang(lang) {
     if (el) el.setAttribute('href', cvFile);
   });
 }
+
+// --- Portfolio de proyectos ---
+// VÍDEO: añade video: 'video/mi-video.mp4' (se reproduce en bucle y sin sonido mientras la ficha está abierta).
+// PARA AÑADIR UN PROYECTO: copia un objeto de PROJECTS, cambia los textos y listo.
+// tags: 'web' | 'engines' | 'games' (puedes crear más y añadirlos en FILTERS).
+// img: ruta a una captura o GIF (p. ej. 'img/mi-proyecto.png'). Si lo dejas vacío, se muestra un bloque de color.
+const FILTERS = [
+  { k: 'all', es: 'Todos', en: 'All' },
+  { k: 'web', es: 'Web', en: 'Web' },
+  { k: 'engines', es: 'Motores', en: 'Engines' },
+  { k: 'games', es: 'Juegos', en: 'Games' },
+  { k: 'graphics', es: 'Gráficos', en: 'Graphics' },
+  { k: 'algorithms', es: 'Algoritmos', en: 'Algorithms' }
+];
+const PROJECTS = [
+  { tags: ['web'], img: '', label: 'Fullstack',
+    title: { es: 'E-COMMERCE FULLSTACK', en: 'FULLSTACK E-COMMERCE' },
+    meta: { es: 'Proyecto personal', en: 'Personal project' },
+    role: { es: 'Desarrollador Fullstack', en: 'Fullstack Developer' },
+    short: { es: 'Tienda online completa con autenticación y pagos reales, desplegada con Docker.', en: 'Complete online store with authentication and real payments, deployed with Docker.' },
+    desc: { es: 'Plataforma de e-commerce completa desarrollada como proyecto personal. SPA con autenticación segura y pasarela de pago real, desplegada con contenedores Docker para garantizar la consistencia en producción.', en: 'Complete e-commerce platform developed as a personal project. SPA with secure authentication and real payment gateway, deployed with Docker containers to ensure production consistency.' },
+    points: { es: ['Single Page Application con autenticación JWT y flujo de usuario completo.', 'Pasarela de pago integrada con Stripe API.', 'Despliegue en contenedores Docker para consistencia entre entornos.'],
+              en: ['Single Page Application with JWT authentication and full user flow.', 'Payment gateway integrated with Stripe API.', 'Docker container deployment for environment consistency.'] },
+    tech: ['React.js', 'Node.js', 'MongoDB', 'JWT', 'Stripe API', 'Docker'],
+    links: [{ es: 'Ver demo →', en: 'Live demo →', url: 'https://ecommerce-frontend-sqnq.onrender.com/login' }] },
+  { tags: ['engines', 'games', 'graphics'], img: '', label: 'C++ / OpenGL',
+    title: { es: 'MOTOR & JUEGO EN 3D', en: '3D ENGINE & GAME' },
+    meta: { es: 'Proyecto académico en grupo · Digipen', en: 'Academic group project · Digipen' },
+    role: { es: 'Programador de gráficos y gameplay', en: 'Graphics & Gameplay Programmer' },
+    short: { es: 'Motor gráfico 3D sobre OpenGL con shaders GLSL, y juego desarrollado encima.', en: '3D graphics engine on OpenGL with GLSL shaders, plus a game built on top of it.' },
+    desc: { es: 'Motor gráfico 3D construido desde cero sobre OpenGL. Responsable del pipeline de renderizado, shaders y desarrollo de gameplay y diseño de niveles.', en: '3D graphics engine built from scratch on top of OpenGL. Responsible for the rendering pipeline, shaders, and gameplay development and level design.' },
+    points: { es: ['Motor gráfico 3D con OpenGL para renderizar modelos y texturas en 3D.', 'Shaders GLSL para efectos de iluminación, sombras e interfaces dinámicas.', 'Desarrollo de gameplay, diseño de niveles y pulido final del juego.'],
+              en: ['3D graphics engine with OpenGL for rendering 3D models and textures.', 'GLSL shaders for lighting effects, shadows and dynamic interfaces.', 'Gameplay development, level design and final game polish.'] },
+    tech: ['C++', 'OpenGL', 'GLSL', 'Git'],
+    links: [{ es: 'Ver juego →', en: 'See the game →', url: 'https://www.digipen.es/showcase/student-games/chaos-4-sale' }] },
+  { tags: ['engines', 'games'], img: '', label: 'C++ / ImGui',
+    title: { es: 'MOTOR & JUEGO EN 2D', en: '2D ENGINE & GAME' },
+    meta: { es: 'Proyecto académico en grupo · Digipen', en: 'Academic group project · Digipen' },
+    role: { es: 'Programador de herramientas y gameplay', en: 'Tools & Gameplay Programmer' },
+    short: { es: 'Motor 2D con editor propio para crear niveles y editar objetos en tiempo real.', en: '2D engine with a custom editor to build levels and edit objects in real time.' },
+    desc: { es: 'Desarrollo del editor personalizado del motor y sistemas de gameplay. El editor permite importar/exportar escenas, crear niveles y editar objetos en tiempo real.', en: 'Development of the custom engine editor and gameplay systems. The editor allows importing/exporting scenes, creating levels and editing objects in real time.' },
+    points: { es: ['Editor personalizado con importar/exportar, creación de niveles y edición en tiempo real.', 'Desarrollo de gameplay, efectos visuales y pulido final del juego.'],
+              en: ['Custom editor with import/export, level creation and real-time editing.', 'Gameplay development, visual effects and final game polish.'] },
+    tech: ['C++', 'OpenGL', 'ImGui', 'ImGuizmo', 'Git'],
+    links: [{ es: 'Ver juego →', en: 'See the game →', url: 'https://www.digipen.es/es/galeria/juegos-de-estudiantes/virtual-mayhem' }] },
+  { tags: ['graphics'], img: '', video: 'video/shaders.mp4', label: 'C++ / GLSL',
+    title: { es: 'SHADERS GLSL & SDL', en: 'GLSL SHADERS & SDL' },
+    meta: { es: 'Proyecto de gráficos · C++', en: 'Graphics project · C++' },
+    role: { es: 'Programador de gráficos', en: 'Graphics Programmer' },
+    short: { es: 'Proyecto de gráficos en C++ centrado en shaders escritos en GLSL con SDL.', en: 'C++ graphics project focused on shaders written in GLSL with SDL.' },
+    desc: { es: 'Proyecto de gráficos en C++ centrado en la programación de shaders con GLSL, utilizando SDL.', en: 'C++ graphics project focused on shader programming with GLSL, using SDL.' },
+    points: { es: ['Programación de shaders en GLSL para generar efectos visuales.', 'Aplicación en C++ construida con SDL.'],
+              en: ['GLSL shader programming to generate visual effects.', 'C++ application built with SDL.'] },
+    tech: ['C++', 'GLSL', 'SDL'],
+    links: [] },
+  { tags: ['algorithms'], img: '', video: 'video/bounding-volumes.mp4', label: 'C++ / Algoritmos',
+    title: { es: 'BOUNDING VOLUMES', en: 'BOUNDING VOLUMES' },
+    meta: { es: 'Proyecto de optimización · C++', en: 'Optimization project · C++' },
+    role: { es: 'Programador de algoritmos y optimización', en: 'Algorithms & Optimization Programmer' },
+    short: { es: 'Proyecto en C++ de optimización y algoritmos sobre bounding volumes.', en: 'C++ optimization and algorithms project on bounding volumes.' },
+    desc: { es: 'Proyecto en C++ de optimización y algoritmos centrado en bounding volumes (volúmenes envolventes).', en: 'C++ optimization and algorithms project focused on bounding volumes.' },
+    points: { es: ['Implementación de bounding volumes y algoritmos asociados.', 'Enfoque en eficiencia y rendimiento.'],
+              en: ['Implementation of bounding volumes and related algorithms.', 'Focus on efficiency and performance.'] },
+    tech: ['C++', 'Algoritmos', 'Optimización'],
+    links: [] }
+];
+
+let activeFilter = 'all';
+function renderProjects() {
+  const L = currentLang;
+  document.getElementById('filters').innerHTML = FILTERS.map(f =>
+    `<button class="filter-btn${f.k === activeFilter ? ' active' : ''}" onclick="setFilter('${f.k}')">${f[L]}</button>`).join('');
+  const list = PROJECTS.map((p, i) => ({ p, i })).filter(({ p }) => activeFilter === 'all' || p.tags.includes(activeFilter));
+  const grid = document.getElementById('grid');
+  grid.innerHTML = list.map(({ p, i }) => `
+    <article class="card reveal" tabindex="0" onclick="openModal(${i})" onkeydown="if(event.key==='Enter')openModal(${i})">
+      <div class="thumb t${i % 3}">${p.img ? `<img src="${p.img}" alt="${p.title[L]}" loading="lazy">` : ''}<span class="big">${String(i + 1).padStart(2, '0')}</span><span class="lbl">${p.label}</span></div>
+      <div class="card-body">
+        <div class="card-cat">${p.meta[L]}</div>
+        <h3>${p.title[L]}</h3>
+        <p>${p.short[L]}</p>
+        <div class="tech-row">${p.tech.slice(0, 4).map(t => `<span class="tech-chip">${t}</span>`).join('')}</div>
+      </div>
+    </article>`).join('');
+  grid.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
+function setFilter(k) { activeFilter = k; renderProjects(); }
+function openModal(i) {
+  const p = PROJECTS[i], L = currentLang;
+  document.getElementById('modal-media').innerHTML = p.video
+    ? `<video class="modal-video" src="${p.video}" autoplay loop muted playsinline preload="auto" onerror="this.remove()"></video>` : '';
+  const vid = document.querySelector('#modal-media video');
+  if (vid) vid.play().catch(() => {});
+  document.getElementById('modal-in').innerHTML = `
+    <div class="card-cat">${p.meta[L]}</div>
+    <h3>${p.title[L]}</h3>
+    <div class="project-role-tag">${p.role[L]}</div>
+    <p class="project-body">${p.desc[L]}</p>
+    <ul class="project-highlights">${p.points[L].map(x => `<li>${x}</li>`).join('')}</ul>
+    <div class="tech-row">${p.tech.map(t => `<span class="tech-chip">${t}</span>`).join('')}</div>
+    ${p.links.length ? `<div class="modal-links">${p.links.map(l => `<a class="btn btn-red" href="${l.url}" target="_blank" rel="noopener">${l[L]}</a>`).join('')}</div>` : ''}`;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.getElementById('modal-media').innerHTML = ''; // detiene el vídeo
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+renderProjects();
 </script>
 </body>
 </html>
