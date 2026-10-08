@@ -38,7 +38,16 @@ nav {
 }
 .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.06em; color: var(--paper); }
 .nav-logo span { color: var(--red); }
-nav ul { list-style: none; display: flex; gap: 32px; }
+html { scroll-padding-top: 56px; }
+.burger { width: 40px; height: 40px; background: transparent; border: 2px solid var(--paper); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; cursor: pointer; padding: 0; }
+.burger span { display: block; width: 18px; height: 2px; background: var(--paper); transition: transform 0.25s, opacity 0.2s; }
+.burger:hover { border-color: var(--yellow); }
+.burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger.open span:nth-child(2) { opacity: 0; }
+.burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+nav ul { list-style: none; position: absolute; top: calc(100% + 3px); right: 0; min-width: 260px; display: flex; flex-direction: column; background: var(--ink); border: 3px solid var(--red); border-top: none; visibility: hidden; opacity: 0; transform: translateY(-8px); transition: opacity 0.2s, transform 0.2s, visibility 0.2s; }
+nav ul.open { visibility: visible; opacity: 1; transform: none; }
+nav ul li a { display: block; padding: 18px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 13px; }
 nav ul a { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--mid); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.15s; }
 nav ul a:hover { color: var(--yellow); }
 
@@ -74,6 +83,9 @@ h1 .last { color: var(--red); }
 .btn-red:hover { background: #b02e22; border-color: #b02e22; color: var(--chalk); }
 .hero-strip { background: var(--ink); color: var(--paper); display: flex; align-items: center; overflow: hidden; height: 48px; border-top: 2px solid var(--red); }
 .strip-item { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 0 28px; color: var(--mid); white-space: nowrap; border-right: 1px solid rgba(255,255,255,0.08); height: 100%; display: flex; align-items: center; }
+.strip-track { display: flex; width: max-content; animation: marquee 45s linear infinite; }
+.hero-strip:hover .strip-track { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-50%); } }
 .strip-item.accent { color: var(--yellow); }
 .strip-item.red-text { color: var(--red); }
 
@@ -179,11 +191,10 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
 .filter-btn:hover, .filter-btn.active { background: var(--ink); color: var(--paper); }
 .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 28px; }
 .card { flex: 0 0 calc((100% - 56px) / 3); border: 2px solid var(--ink); background: var(--chalk); cursor: crosshair; display: flex; flex-direction: column; transition: transform 0.15s, box-shadow 0.15s; }
-.card:hover, .card:focus-visible { transform: translate(-4px,-4px); box-shadow: 6px 6px 0 var(--red); outline: none; }
+.card:focus-visible { transform: translate(-4px,-4px); box-shadow: 6px 6px 0 var(--red); outline: none; }
+@media (hover: hover) { .card:hover { transform: translate(-4px,-4px); box-shadow: 6px 6px 0 var(--red); outline: none; } }
 .thumb { aspect-ratio: 16/10; border-bottom: 2px solid var(--ink); position: relative; overflow: hidden; display: flex; align-items: flex-end; justify-content: space-between; padding: 16px; background: var(--ink); color: var(--paper); }
-.thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.thumb .big { font-family: 'Bebas Neue', sans-serif; font-size: 110px; line-height: 0.75; color: var(--yellow); }
-.thumb .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.8; }
+.thumb img { z-index: 1; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .card-body { padding: 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .card-cat { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); }
 .card h3 { font-size: 34px; }
@@ -205,7 +216,14 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
 /* RESPONSIVE */
 @media (max-width: 720px) {
   nav { padding: 0 20px; }
-  nav ul { gap: 16px; }
+  nav ul { left: 0; min-width: 0; border-left: 0; border-right: 0; }
+  .hero-desc { font-size: 16px; }
+  .hero-btns .btn { flex: 1 1 100%; text-align: center; }
+  .section-header { margin-bottom: 32px; gap: 12px; }
+  .filter-btn { padding: 10px 14px; }
+  .contact-link { font-size: 13px; word-break: break-word; }
+  .climbing-callout { flex-direction: column; align-items: flex-start; padding: 20px; }
+  footer { padding: 20px; }
   section { padding: 60px 20px; }
   .hero-main { padding: 50px 20px 32px; }
   .skills-layout { grid-template-columns: 1fr; }
@@ -216,8 +234,9 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
   .about-grid, .contact-layout { grid-template-columns: 1fr; gap: 40px; }
 }
 
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.show { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .strip-track { animation: none; } .reveal { opacity: 1; transform: none; transition: none; } }
 </style>
 </head>
 <body>
@@ -227,7 +246,8 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
     <button class="lang-btn active" id="btn-es" onclick="setLang('es')">ES</button>
     <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
   </div>
-  <ul>
+  <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  <ul id="menu">
     <li><a href="#projects" data-es="Proyectos" data-en="Projects">Proyectos</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#about" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
@@ -248,14 +268,15 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
     </div>
   </div>
   <div class="hero-strip">
-    <div class="strip-item red-text" data-es="Disponible · Reubicación" data-en="Available · Relocation">Disponible · Reubicación</div>
-    <div class="strip-item red-text">Digipen Institute of Technology</div>
+    <div class="strip-track" id="strip-track">
+      <div class="strip-item red-text" data-es="Disponible · Reubicación" data-en="Available · Relocation">Disponible · Reubicación</div>
+      <div class="strip-item red-text">Digipen Institute of Technology</div>
+    </div>
   </div>
 </section>
 
 <section id="projects">
   <div class="section-header">
-    <span class="section-num">01 /</span>
     <h2 data-es="PROYECTOS" data-en="PROJECTS">PROYECTOS</h2>
   </div>
   <div class="filters" id="filters"></div>
@@ -269,7 +290,6 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
 
 <section id="skills">
   <div class="section-header">
-    <span class="section-num">02 /</span>
     <h2>STACK</h2>
   </div>
   <div class="skills-layout">
@@ -322,7 +342,6 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
 
 <section id="about">
   <div class="section-header">
-    <span class="section-num">03 /</span>
     <h2 data-es="SOBRE MÍ" data-en="ABOUT ME">SOBRE MÍ</h2>
   </div>
   <div class="about-grid">
@@ -363,7 +382,6 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
 
 <section id="contact">
   <div class="section-header">
-    <span class="section-num">04 /</span>
     <h2 data-es="CONTACTO" data-en="CONTACT">CONTACTO</h2>
   </div>
   <div class="contact-layout">
@@ -401,6 +419,7 @@ const io = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.1 });
+document.querySelectorAll('.section-header, .filters, .repo-note, .climbing-callout, .contact-big').forEach(el => el.classList.add('reveal'));
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 // --- Active nav link on scroll ---
@@ -465,7 +484,7 @@ const FILTERS = [
   { k: 'algorithms', es: 'Algoritmos', en: 'Algorithms' }
 ];
 const PROJECTS = [
-  { tags: ['web'], img: '', video: 'video/ecommerce.mp4', label: 'Fullstack',
+  { tags: ['web'], img: 'img/ecommerce.jpg', video: 'video/ecommerce.mp4', label: 'Fullstack',
     title: { es: 'E-COMMERCE FULLSTACK', en: 'FULLSTACK E-COMMERCE' },
     meta: { es: 'Proyecto personal', en: 'Personal project' },
     role: { es: 'Desarrollador Fullstack', en: 'Fullstack Developer' },
@@ -475,7 +494,7 @@ const PROJECTS = [
               en: ['Single Page Application with JWT authentication and full user flow.', 'Payment gateway integrated with Stripe API.', 'Docker container deployment for environment consistency.'] },
     tech: ['React.js', 'Node.js', 'MongoDB', 'JWT', 'Stripe API', 'Docker'],
     links: [{ es: 'Ver demo →', en: 'Live demo →', url: 'https://ecommerce-frontend-sqnq.onrender.com/login' }] },
-  { tags: ['graphics'], img: '', video: 'video/shaders.mp4', label: 'C++ / GLSL',
+  { tags: ['graphics'], img: 'img/shaders.jpg', video: 'video/shaders.mp4', label: 'C++ / GLSL',
     title: { es: 'SHADERS GLSL & SDL', en: 'GLSL SHADERS & SDL' },
     meta: { es: 'Proyecto de gráficos · C++', en: 'Graphics project · C++' },
     role: { es: 'Programador de gráficos', en: 'Graphics Programmer' },
@@ -485,7 +504,7 @@ const PROJECTS = [
               en: ['GLSL shader programming to generate visual effects.', 'C++ application built with SDL.'] },
     tech: ['C++', 'GLSL', 'SDL'],
     links: [] },
-  { tags: ['algorithms'], img: '', video: 'video/bounding-volumes.mp4', label: 'C++ / Algoritmos',
+  { tags: ['algorithms'], img: 'img/bounding-volumes.jpg', video: 'video/bounding-volumes.mp4', label: 'C++ / Algoritmos',
     title: { es: 'BOUNDING VOLUMES', en: 'BOUNDING VOLUMES' },
     meta: { es: 'Proyecto de optimización · C++', en: 'Optimization project · C++' },
     role: { es: 'Programador de algoritmos y optimización', en: 'Algorithms & Optimization Programmer' },
@@ -495,7 +514,7 @@ const PROJECTS = [
               en: ['Implementation of bounding volumes and related algorithms.', 'Focus on efficiency and performance.'] },
     tech: ['C++', 'Algoritmos', 'Optimización'],
     links: [] },
-  { tags: ['engines', 'games', 'graphics'], img: '', video: 'video/motor-3d.mp4', label: 'C++ / OpenGL',
+  { tags: ['engines', 'games', 'graphics'], img: 'img/motor-3d.jpg', video: 'video/motor-3d.mp4', label: 'C++ / OpenGL',
     title: { es: 'MOTOR & JUEGO EN 3D', en: '3D ENGINE & GAME' },
     meta: { es: 'Proyecto académico en grupo · Digipen', en: 'Academic group project · Digipen' },
     role: { es: 'Programador de gráficos y gameplay', en: 'Graphics & Gameplay Programmer' },
@@ -505,7 +524,7 @@ const PROJECTS = [
               en: ['3D graphics engine with OpenGL for rendering 3D models and textures.', 'GLSL shaders for lighting effects, shadows and dynamic interfaces.', 'Gameplay development, level design and final game polish.'] },
     tech: ['C++', 'OpenGL', 'GLSL', 'Git'],
     links: [{ es: 'Ver juego →', en: 'See the game →', url: 'https://www.digipen.es/showcase/student-games/chaos-4-sale' }] },
-  { tags: ['engines', 'games'], img: '', video: 'video/motor-2d.mp4', label: 'C++ / ImGui',
+  { tags: ['engines', 'games'], img: 'img/motor-2d.jpg', video: 'video/motor-2d.mp4', label: 'C++ / ImGui',
     title: { es: 'MOTOR & JUEGO EN 2D', en: '2D ENGINE & GAME' },
     meta: { es: 'Proyecto académico en grupo · Digipen', en: 'Academic group project · Digipen' },
     role: { es: 'Programador de herramientas y gameplay', en: 'Tools & Gameplay Programmer' },
@@ -526,7 +545,7 @@ function renderProjects() {
   const grid = document.getElementById('grid');
   grid.innerHTML = list.map(({ p, i }) => `
     <article class="card reveal" tabindex="0" onclick="openModal(${i})" onkeydown="if(event.key==='Enter')openModal(${i})">
-      <div class="thumb t${i % 3}">${p.img ? `<img src="${p.img}" alt="${p.title[L]}" loading="lazy">` : ''}<span class="big">${String(i + 1).padStart(2, '0')}</span><span class="lbl">${p.label}</span></div>
+      <div class="thumb t${i % 3}">${p.img ? `<img src="${p.img}" alt="${p.title[L]}" loading="lazy" onerror="this.remove()">` : ''}</div>
       <div class="card-body">
         <div class="card-cat">${p.meta[L]}</div>
         <h3>${p.title[L]}</h3>
@@ -559,6 +578,24 @@ function closeModal() {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 renderProjects();
+
+// --- Menú hamburguesa ---
+const burger = document.getElementById('burger');
+const menu = document.getElementById('menu');
+function setMenu(open) {
+  menu.classList.toggle('open', open);
+  burger.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', open);
+}
+burger.addEventListener('click', e => { e.stopPropagation(); setMenu(!menu.classList.contains('open')); });
+menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('click', e => { if (!menu.contains(e.target)) setMenu(false); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+
+// --- Barra en bucle (marquee) ---
+const stripTrack = document.getElementById('strip-track');
+const stripHalf = stripTrack.innerHTML.repeat(6);
+stripTrack.innerHTML = stripHalf + stripHalf; // dos mitades iguales = bucle sin saltos
 </script>
 </body>
 </html>
