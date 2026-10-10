@@ -287,6 +287,11 @@ footer { background: var(--ink); color: rgba(255,255,255,0.3); font-family: 'IBM
 .modal-links { display: flex; gap: 10px; flex-wrap: wrap; }
 .modal-links .btn { padding: 18px 28px; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.1em; text-align: center; background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .modal-links .btn:hover { background: var(--paper); color: var(--ink); }
+/* VÍDEO DEL MODAL EN PC: a todo el ancho de la ficha, 16:9 real, sin barras negras */
+@media (min-width: 721px) {
+  #modal-media.has-video { width: 100%; margin: 0; max-height: none; }
+  .modal-video { object-fit: cover; }
+}
 @media (max-width: 980px) { .card { flex-basis: calc((100% - 28px) / 2); } }
 @media (max-width: 720px) {
   .card { flex-basis: 100%; }
